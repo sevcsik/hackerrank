@@ -8,12 +8,13 @@ readPoints acc n = do
     readPoints (point:acc) (n - 1)
 
 -- https://www.wikihow.com/Sample/Area-of-an-Irregular-Polygon
-area points pointCount = 0.5 * abs (sumProduct pointsPairedForward - sumProduct pointsPairedBackwards)
+area points pointCount = 0.5 * abs (sumProduct points' - sumProduct points'')
     where
-        pointsPairedForward = undefined
-        pointsPairedBackwards = undefined
+        points' = undefined
+        points'' = undefined
+        indices = [0..(pointCount - 1)]
+        indices' = [1..(pointCount - 1)] ++ [0]
         sumProduct = foldl (+) 0 . map (\(x, y) -> x * y)
-
 
 main = do
     pointCount <- fmap read getLine
