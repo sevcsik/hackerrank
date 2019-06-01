@@ -7,14 +7,15 @@ readPoints acc n = do
     point <- fmap ((\[x, y] -> (x, y)) . (fmap read) . words) getLine
     readPoints (point:acc) (n - 1)
 
--- https://www.wikihow.com/Sample/Area-of-an-Irregular-Polygon
-area points pointCount = 0.5 * abs (sumProduct points' - sumProduct points'')
+area points pointCount = 0.5 * abs (sumProduct series - sumProduct series')
     where
-        points' = undefined
-        points'' = undefined
         indices = [0..(pointCount - 1)]
         indices' = [1..(pointCount - 1)] ++ [0]
+        mkSeries = zipWith (\x y -> (fst $ points !! x, snd $ points !! y))
+        series = mkSeries indices indices'
+        series' = mkSeries indices' indices
         sumProduct = foldl (+) 0 . map (\(x, y) -> x * y)
+
 
 main = do
     pointCount <- fmap read getLine
